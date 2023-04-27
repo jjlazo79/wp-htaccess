@@ -1,0 +1,26 @@
+# BEGIN WordPress
+<ifmodule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . /index.php [L]
+</ifmodule>
+# END WordPress
+
+
+# OPTIMIZATION by Ivan Privalov
+# https://www.upwork.com/freelancers/~01ccbfea2fb1fb07fb
+
+# EARLY UTF-8 ENCODING for text/plain, /html & static files
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+AddCharset UTF-8 .atom .css .js .json .rss .vtt .xml .woff .woff2
+</IfModule>
+
+# BEGIN Gzip
+<ifmodule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript text/javascript font/ttf font/otf image/svg+xml
+</ifmodule>
+# End Gzip
